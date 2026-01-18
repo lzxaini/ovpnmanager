@@ -1,0 +1,837 @@
+INFO:     Will watch for changes in these directories: ['/root/ovpnManager/backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [20845] using WatchFiles
+2026-01-17 21:28:00,965 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [20860]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     10.8.0.2:36519 - "GET / HTTP/1.1" 404 Not Found
+INFO:     10.8.0.2:40754 - "OPTIONS /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40754 - "GET /api/dashboard/metrics HTTP/1.1" 401 Unauthorized
+2026-01-17 21:33:00,453 [WARNING] passlib.handlers.bcrypt - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+INFO:     10.8.0.2:40800 - "POST /api/auth/login HTTP/1.1" 200 OK
+2026-01-17 21:33:01,358 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:40800 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40800 - "OPTIONS /api/servers HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40800 - "OPTIONS /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40818 - "OPTIONS /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40800 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40818 - "OPTIONS /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40818 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40817 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "OPTIONS /api/clients?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40817 - "OPTIONS /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40818 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40819 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40818 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40817 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-17 21:33:10,497 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:40817 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40818 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40819 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40818 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40817 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40817 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "OPTIONS /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40817 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40819 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40818 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40817 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:40818 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:40818 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-17 21:33:15,370 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:40818 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20101 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20101 - "OPTIONS /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 10:22:43,726 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:20101 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20124 - "OPTIONS /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20125 - "OPTIONS /api/servers HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20126 - "OPTIONS /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20125 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:20124 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20126 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20125 - "OPTIONS /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20126 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:20125 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20125 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20142 - "OPTIONS /api/clients?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20142 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:20142 - "OPTIONS /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:20142 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+2026-01-18 10:23:52,872 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:15203 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15203 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15203 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15211 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15203 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15212 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15212 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15212 - "OPTIONS /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15212 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+2026-01-18 10:26:50,956 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:15676 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15676 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15676 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15681 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15676 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15680 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15676 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15676 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15676 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15676 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15676 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15676 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15676 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15704 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15703 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15704 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15703 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15704 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15704 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15704 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15704 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15704 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15704 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15771 - "OPTIONS /api/clients HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15771 - "POST /api/clients HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15771 - "OPTIONS /api/clients/ HTTP/1.1" 200 OK
+2026-01-18 10:27:28,240 [INFO] app.api.api_v1.endpoints.clients - Creating client cn=lison5 by user=admin
+INFO:     10.8.0.2:15771 - "POST /api/clients/ HTTP/1.1" 201 Created
+INFO:     10.8.0.2:15771 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15771 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/api/api_v1/endpoints/auth.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [20860]
+2026-01-18 10:27:32,743 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [32219]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     10.8.0.2:15821 - "POST /api/clients HTTP/1.1" 307 Temporary Redirect
+2026-01-18 10:27:45,675 [INFO] app.api.api_v1.endpoints.clients - Creating client cn=lison6 by user=admin
+INFO:     10.8.0.2:15821 - "POST /api/clients/ HTTP/1.1" 201 Created
+INFO:     10.8.0.2:15821 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15821 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15930 - "POST /api/clients HTTP/1.1" 307 Temporary Redirect
+2026-01-18 10:28:17,057 [INFO] app.api.api_v1.endpoints.clients - Creating client cn=lison7 by user=admin
+INFO:     10.8.0.2:15930 - "POST /api/clients/ HTTP/1.1" 201 Created
+INFO:     10.8.0.2:15930 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15930 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15930 - "OPTIONS /api/clients?page=2&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15930 - "GET /api/clients?page=2&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15930 - "OPTIONS /api/clients/?page=2&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15930 - "GET /api/clients/?page=2&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15930 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15930 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:31921 - "GET /api/clients?page=2&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:31921 - "GET /api/clients/?page=2&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:31921 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:31921 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:31921 - "OPTIONS /api/clients?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:31921 - "GET /api/clients?page=1&page_size=20 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:31921 - "OPTIONS /api/clients/?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:31921 - "GET /api/clients/?page=1&page_size=20 HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/api/api_v1/endpoints/clients.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [32219]
+2026-01-18 10:29:25,191 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [32397]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/api/api_v1/endpoints/clients.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [32397]
+2026-01-18 10:30:04,948 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [32468]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     10.8.0.2:30850 - "OPTIONS /api/servers HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30851 - "OPTIONS /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "OPTIONS /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30851 - "OPTIONS /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30850 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30851 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30852 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "OPTIONS /api/clients?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30852 - "OPTIONS /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "OPTIONS /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30852 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30850 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30851 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30852 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "OPTIONS /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 10:46:19,710 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:30852 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30874 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30875 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30874 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30852 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30852 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30852 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30931 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30931 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30931 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30938 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30939 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30938 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30931 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30931 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30931 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30931 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30931 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30939 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30938 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30931 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30938 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30938 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-18 10:46:52,953 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:30938 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30938 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30939 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30931 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30938 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30931 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30931 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:30931 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:30931 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+2026-01-18 10:47:05,441 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:30981 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 10:47:09,682 [WARNING] passlib.handlers.bcrypt - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+INFO:     10.8.0.2:30981 - "POST /api/auth/login HTTP/1.1" 200 OK
+2026-01-18 10:47:10,591 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:30981 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54850 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54850 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-18 10:47:34,667 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:54848 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54850 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54850 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-18 10:47:37,564 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:54848 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54849 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54849 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54849 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54849 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54849 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-18 10:47:39,901 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:54848 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54850 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-18 10:47:42,125 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:54848 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54849 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54850 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:54848 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:54848 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34648 - "OPTIONS /api/servers HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "OPTIONS /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34650 - "OPTIONS /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34648 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34650 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34648 - "OPTIONS /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34648 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "OPTIONS /api/clients?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "OPTIONS /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "OPTIONS /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34685 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "OPTIONS /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:04:09,471 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:34684 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34685 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34685 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-18 11:04:14,308 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:34649 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34685 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34685 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-18 11:04:17,846 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:34649 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34685 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34685 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34649 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34685 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34685 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-18 11:04:20,544 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:34685 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34685 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34649 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34685 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:34684 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:34684 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:35012 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:35014 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:35013 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:35014 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:35012 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:35012 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:35012 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:35012 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/schemas/audit_log.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [32468]
+2026-01-18 11:07:15,614 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [2117]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/api/api_v1/endpoints/logs.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2117]
+2026-01-18 11:07:32,035 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [2128]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     10.8.0.2:7168 - "OPTIONS /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7168 - "GET /api/dashboard/metrics HTTP/1.1" 401 Unauthorized
+2026-01-18 11:08:46,744 [WARNING] passlib.handlers.bcrypt - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+INFO:     10.8.0.2:7185 - "POST /api/auth/login HTTP/1.1" 200 OK
+2026-01-18 11:08:47,710 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:7185 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:10:13,748 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:7424 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7452 - "OPTIONS /api/servers HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7453 - "OPTIONS /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7454 - "OPTIONS /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7452 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:7453 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7452 - "OPTIONS /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7454 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7452 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7454 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:7454 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7472 - "OPTIONS /api/clients?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7472 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:7472 - "OPTIONS /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7472 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7472 - "OPTIONS /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7472 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+2026-01-18 11:11:53,713 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:7667 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7695 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:7694 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7696 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7695 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7694 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:7694 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7694 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:7694 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:7694 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:26268 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:36808 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:36877 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:36913 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:38908 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39006 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39028 - "OPTIONS /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:19:58,840 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:39028 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:20:26,418 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:39092 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39110 - "OPTIONS /api/servers HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39111 - "OPTIONS /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39112 - "OPTIONS /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39112 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39111 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:39110 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39111 - "OPTIONS /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39112 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:39111 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39112 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39112 - "OPTIONS /api/clients?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39112 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:39112 - "OPTIONS /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39112 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39112 - "OPTIONS /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39112 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39298 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39332 - "OPTIONS /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:21:54,905 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:39332 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39332 - "OPTIONS /api/servers HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39333 - "OPTIONS /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39334 - "OPTIONS /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39332 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:39333 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39332 - "OPTIONS /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39334 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39332 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39334 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:39334 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39334 - "OPTIONS /api/clients?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39334 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:39334 - "OPTIONS /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39334 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39334 - "OPTIONS /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39334 - "GET /api/logs/audit?limit=200 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39334 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:39334 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39334 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39332 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:39333 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39332 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:39333 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:39332 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-18 11:22:00,055 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:39332 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:16424 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:16424 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15392 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15444 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15545 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15578 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15578 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15578 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15578 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15584 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15578 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:15583 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:15578 - "GET /api/servers/ HTTP/1.1" 200 OK
+2026-01-18 11:25:45,330 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:15585 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:25:56,400 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:15652 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:26:01,407 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:15652 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:27:54,229 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:22879 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:28:50,217 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:31944 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:32133 - "OPTIONS /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:29:59,891 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:32133 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:35:47,950 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:43025 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:36:16,918 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:43103 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43156 - "OPTIONS /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43157 - "OPTIONS /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43158 - "OPTIONS /api/servers HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43158 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43157 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43158 - "OPTIONS /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43156 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43158 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43156 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43158 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43178 - "OPTIONS /api/clients?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43178 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43178 - "OPTIONS /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43178 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43178 - "OPTIONS /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43178 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43178 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43178 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43178 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43194 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43195 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43178 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43194 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43194 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43194 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43194 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43194 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43194 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43194 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43831 - "OPTIONS /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:38:47,631 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:43831 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/api/api_v1/endpoints/clients.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2128]
+2026-01-18 11:38:57,439 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [4498]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     10.8.0.2:43841 - "OPTIONS /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43842 - "OPTIONS /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43843 - "OPTIONS /api/servers HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43843 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43842 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43841 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43843 - "OPTIONS /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43841 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43843 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43841 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:43917 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:43917 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44017 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "OPTIONS /api/clients?page=1&page_size=10&status=online HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "GET /api/clients?page=1&page_size=10&status=online HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44017 - "OPTIONS /api/clients/?page=1&page_size=10&status=online HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "GET /api/clients/?page=1&page_size=10&status=online HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "OPTIONS /api/clients?page=1&page_size=10&status=offline HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "GET /api/clients?page=1&page_size=10&status=offline HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44017 - "OPTIONS /api/clients/?page=1&page_size=10&status=offline HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "GET /api/clients/?page=1&page_size=10&status=offline HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "OPTIONS /api/clients?page=1&page_size=10&status=disabled HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "GET /api/clients?page=1&page_size=10&status=disabled HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44017 - "OPTIONS /api/clients/?page=1&page_size=10&status=disabled HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "GET /api/clients/?page=1&page_size=10&status=disabled HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44017 - "GET /api/clients?page=1&page_size=10&status=online HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44017 - "GET /api/clients/?page=1&page_size=10&status=online HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44079 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44079 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44079 - "OPTIONS /api/clients?page=1&page_size=10&name=song HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44079 - "GET /api/clients?page=1&page_size=10&name=song HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44079 - "OPTIONS /api/clients/?page=1&page_size=10&name=song HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44079 - "GET /api/clients/?page=1&page_size=10&name=song HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44103 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44103 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44123 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44122 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44125 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44122 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44123 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44122 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44122 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44122 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44122 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44150 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:44150 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:44150 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/api/api_v1/endpoints/logs.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [4498]
+2026-01-18 11:42:08,160 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [4792]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     10.8.0.2:57453 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:57598 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:6009 - "OPTIONS /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:6009 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17355 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "OPTIONS /api/logs/audit?page=1&page_size=20&action=user_login HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/logs/audit?page=1&page_size=20&action=user_login HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "OPTIONS /api/logs/audit?page=1&page_size=20&action=client_login HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/logs/audit?page=1&page_size=20&action=client_login HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "OPTIONS /api/logs/audit?page=1&page_size=20&action=delete_client HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/logs/audit?page=1&page_size=20&action=delete_client HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "OPTIONS /api/logs/audit?page=1&page_size=20&action=client_disconnect HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/logs/audit?page=1&page_size=20&action=client_disconnect HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "OPTIONS /api/logs/audit?page=1&page_size=20&action=client_logout HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/logs/audit?page=1&page_size=20&action=client_logout HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/logs/audit?page=1&page_size=20&action=user_login HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "OPTIONS /api/clients?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17370 - "OPTIONS /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "OPTIONS /api/servers HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "OPTIONS /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17425 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17426 - "OPTIONS /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17425 - "OPTIONS /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17426 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17370 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17425 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17425 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17425 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17425 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17425 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17425 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17425 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17427 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17462 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17463 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17462 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17427 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17427 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17427 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17427 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17427 - "OPTIONS /api/dashboard/metrics HTTP/1.1" 200 OK
+2026-01-18 11:50:03,301 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:17427 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17427 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17427 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17427 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17427 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17427 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17631 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17633 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17632 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17631 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17632 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17632 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17632 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17632 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17632 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+2026-01-18 11:51:08,425 [INFO] app.api.api_v1.endpoints.dashboard - Dashboard metrics requested
+INFO:     10.8.0.2:17632 - "GET /api/dashboard/metrics HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17632 - "POST /api/servers/control/status HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17651 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17650 - "GET /api/servers/config HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17651 - "GET /api/servers HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17632 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17632 - "GET /api/servers/ HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17632 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17632 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17632 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17632 - "GET /api/clients?page=1&page_size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     10.8.0.2:17632 - "GET /api/clients/?page=1&page_size=10 HTTP/1.1" 200 OK
+INFO:     10.8.0.2:17632 - "GET /api/logs/audit?page=1&page_size=20 HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/utils/time.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [4792]
+2026-01-18 11:54:48,726 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [5635]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/models/audit_log.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [5635]
+2026-01-18 11:55:02,997 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [5649]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/models/client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [5649]
+2026-01-18 11:55:17,195 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [5663]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/models/user.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [5663]
+2026-01-18 11:55:30,589 [INFO] app.main - Swagger UI: http://localhost:8000/docs  |  OpenAPI: /api/openapi.json
+INFO:     Started server process [5674]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/models/vpn_server.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [5674]
+Process SpawnProcess-13:
+Traceback (most recent call last):
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/site-packages/uvicorn/_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/site-packages/uvicorn/server.py", line 62, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/site-packages/uvicorn/server.py", line 69, in serve
+    config.load()
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/site-packages/uvicorn/config.py", line 458, in load
+    self.loaded_app = import_from_string(self.app)
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/site-packages/uvicorn/importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 992, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/root/ovpnManager/backend/app/__init__.py", line 4, in <module>
+    crud = import_module("app.crud")
+  File "/root/miniconda3/envs/ovpn/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/root/ovpnManager/backend/app/crud/__init__.py", line 2, in <module>
+    from app.crud.server import server
+  File "/root/ovpnManager/backend/app/crud/server.py", line 4, in <module>
+    from app.models.vpn_server import VPNServer
+  File "/root/ovpnManager/backend/app/models/vpn_server.py", line 10, in <module>
+    class VPNServer(Base):
+  File "/root/ovpnManager/backend/app/models/vpn_server.py", line 16, in VPNServer
+    port: Mapped[int] = mapped_column(Integer, default=1194)
+NameError: name 'Integer' is not defined

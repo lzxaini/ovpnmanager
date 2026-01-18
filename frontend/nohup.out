@@ -1,0 +1,12 @@
+
+> ovpn-web@0.1.0 dev /root/ovpnManager/frontend
+> vite
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+  VITE v5.4.21  ready in 839 ms
+
+  ➜  Local:   http://localhost:8010/
+  ➜  Network: http://192.168.1.182:8010/
+  ➜  Network: http://192.168.31.182:8010/
+  ➜  Network: http://10.8.0.1:8010/
