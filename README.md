@@ -64,9 +64,73 @@ docs/                       # 部署与操作文档（中文）
 - 前端环境变量（`frontend/.env` 或 `.env.local`）：
   - `VITE_API_BASE`：后端 API 前缀，默认为 `http://localhost:8000/api`。部署示例：`http://192.168.1.182/api`。
 
+### openvpn server.conf  配置文件样例
+```
+# /etc/openvpn/server.conf 
+# OpenVPN TCP服务器配置
+port 1194
+proto tcp
+dev tun
+
+# 证书和密钥
+ca /etc/openvpn/server/ca.crt
+cert /etc/openvpn/server/server.crt
+key /etc/openvpn/server/server.key
+dh /etc/openvpn/server/dh.pem
+tls-auth /etc/openvpn/server/ta.key 0
+
+# 加密设置
+cipher AES-256-GCM
+auth SHA256
+
+# 网络设置
+server 10.8.0.0 255.255.255.0
+topology subnet
+
+# 路由推送
+push "route 192.168.1.0 255.255.255.0"
+
+# DNS设置
+push "dhcp-option DNS 192.168.1.1"
+push "dhcp-option DNS 114.114.114.114"
+
+
+# 管理接口（仅监听本机）
+management 127.0.0.1 7505
+# 在线状态输出，供 /clients/online 使用
+status /var/log/openvpn/openvpn-status.log
+status-version 3
+
+# 吊销校验，配合 easy-rsa 生成的 crl.pem
+crl-verify /etc/openvpn/server/crl.pem
+
+# 客户端设置
+client-to-client
+keepalive 10 120
+persist-key
+persist-tun
+client-config-dir /etc/openvpn/ccd
+ifconfig-pool-persist /etc/openvpn/ipp.txt
+# 用户和权限
+user nobody
+group nobody
+
+# 证书禁用
+#script-security 3
+#tls-verify /root/ovpnManager/backend/app/scripts/tls_verify.py
+
+# 日志
+log-append /var/log/openvpn/openvpn.log
+verb 3
+
+# TCP优化
+socket-flags TCP_NODELAY
+push "socket-flags TCP_NODELAY"
+```
+
 ## 快速开始
 ### 前置条件
-- Python 3.11+（建议使用 virtualenv）
+- Python 3.10+（建议使用 virtualenv）
 - Node.js 18+ 与 npm / pnpm / yarn（示例使用 npm）
 - 目标主机已安装并以 `systemd` 管理的 OpenVPN 服务，服务名默认为 `openvpn@server`
 
