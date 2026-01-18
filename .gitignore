@@ -26,5 +26,5 @@ frontend/.env
 *.log
 .idea/
 .vscode/
-.pdf
-
+*.pdf
+.windsurf/
