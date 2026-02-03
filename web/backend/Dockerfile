@@ -1,7 +1,8 @@
 FROM node:18-alpine
 
 # Install bash and other dependencies
-RUN apk add --no-cache bash curl openssl easy-rsa openvpn socat
+# coreutils: GNU date command for certificate date parsing
+RUN apk add --no-cache bash curl openssl easy-rsa openvpn socat coreutils
 
 WORKDIR /app
 
