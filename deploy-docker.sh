@@ -418,9 +418,33 @@ $COMPOSE_CMD up -d --build
 
 # 等待服务启动
 log_info "等待服务启动..."
-sleep 10
+sleep 5
 
-# 检查容器是否正常运行
+# 等待容器进入 Up 状态 (最多等待30秒)
+log_info "检查容器状态..."
+for i in {1..30}; do
+    if docker ps | grep -q "ovpn-backend"; then
+        BACKEND_STATE=$(docker ps --format "{{.Status}}" --filter "name=ovpn-backend")
+        if [[ "$BACKEND_STATE" == Up* ]]; then
+            log_info "✓ 后端容器已启动 ($i 秒)"
+            break
+        fi
+    fi
+    
+    if [[ $i -eq 30 ]]; then
+        log_error "后端容器启动超时"
+        docker ps -a | grep ovpn
+        docker logs ovpn-backend --tail 50
+        exit 1
+    fi
+    
+    sleep 1
+done
+
+# 再等待几秒让应用完全就绪
+sleep 3
+
+# 最终确认
 if ! docker ps | grep -q "ovpn-backend.*Up"; then
     log_error "后端容器启动失败"
     docker logs ovpn-backend --tail 50
