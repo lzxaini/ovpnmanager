@@ -301,6 +301,14 @@ EOF
 
 log_info "✓ 配置文件已生成: backend/.env"
 
+# 生成前端 .env 文件（使用相对路径）
+log_info "✓ 生成前端配置文件..."
+cat > frontend/.env <<EOF
+# 后端 API 地址（相对路径，通过 Nginx 代理）
+VITE_API_BASE=/api
+EOF
+log_info "✓ 前端配置已生成: frontend/.env"
+
 # 更新 docker-compose.yml
 log_info "✓ 更新 docker-compose.yml..."
 
@@ -338,20 +346,18 @@ if [[ "$MANAGEMENT_TYPE" == "unix" ]]; then
       - /var/run/openvpn-server:/var/run/openvpn-server
 EOF
 fi
-
-cat >> docker-compose.yml <<EOF
-      # systemd 支持
-      - /run/systemd:/run/systemd:ro
-      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
-    env_file:
-      - backend/.env
-
   # 前端服务
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: ovpn-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+EOF container_name: ovpn-frontend
     restart: unless-stopped
     ports:
       - "8080:80"

@@ -15,8 +15,8 @@ ovpnmanager/
 *.swp
 *.swo
 
-# 环境变量
-.env
+# 环境变量（.env 需要在构建时使用，不要忽略）
+# .env
 .env.local
 .env.*.local
 
