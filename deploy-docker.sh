@@ -267,8 +267,13 @@ CCD_PATH=/etc/openvpn/ccd
 OPENVPN_CLIENT_EXPORT_PATH=/etc/openvpn/client-configs
 OPENVPN_STATUS_PATH=/var/log/openvpn/status.log
 OPENVPN_CRL_PATH=/etc/openvpn/server/crl.pem
-TA_KEY_PATH=/etc/openvpn/server/ta.key
 SERVER_CONF_PATH=$SERVER_CONF
+
+# ========== TLS 认证配置 (自动检测) ==========
+TLS_AUTH_MODE=tls-crypt-v2
+TLS_CRYPT_V2_KEY_PATH=/etc/openvpn/server/tls-crypt-v2.key
+TLS_CRYPT_KEY_PATH=/etc/openvpn/server/tls-crypt.key
+TA_KEY_PATH=/etc/openvpn/server/ta.key
 
 EOF
 

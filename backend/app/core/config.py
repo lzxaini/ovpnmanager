@@ -30,6 +30,9 @@ class Settings(BaseSettings):
     openvpn_crl_path: Path = Path("/etc/openvpn/crl.pem")
     openvpn_client_export_path: Path = Path("/etc/openvpn/client-configs")
     ta_key_path: Path = Path("/etc/openvpn/server/ta.key")
+    tls_auth_mode: str = "tls-crypt-v2"  # tls-crypt-v2 | tls-crypt | tls-auth
+    tls_crypt_v2_key_path: Path = Path("/etc/openvpn/server/tls-crypt-v2.key")
+    tls_crypt_key_path: Path = Path("/etc/openvpn/server/tls-crypt.key")
     server_conf_path: Path = Path("/etc/openvpn/server.conf")
     public_ip: str | None = None
     public_port: int | None = None

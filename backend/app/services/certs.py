@@ -132,11 +132,40 @@ def export_ovpn(client: Client, remote_host: str, remote_port: int) -> str:
     cert_path = base / "issued" / f"{client.common_name}.crt"
     key_path = base / "private" / f"{client.common_name}.key"
     ca_path = settings.openvpn_base_path / "server" / "ca.crt"
-    ta_path = settings.ta_key_path
+    
+    # Determine TLS auth mode and key path
+    tls_mode = settings.tls_auth_mode
+    if tls_mode == "tls-crypt-v2":
+        tls_key_path = settings.tls_crypt_v2_key_path
+    elif tls_mode == "tls-crypt":
+        tls_key_path = settings.tls_crypt_key_path
+    else:  # tls-auth
+        tls_key_path = settings.ta_key_path
 
-    for path in [cert_path, key_path, ca_path, ta_path]:
+    for path in [cert_path, key_path, ca_path]:
         if not path.exists():
             raise RuntimeError(f"Required file missing: {path}")
+    
+    if not tls_key_path.exists():
+        raise RuntimeError(f"TLS key file missing: {tls_key_path}")
+
+    # Build TLS section based on mode
+    if tls_mode == "tls-crypt-v2":
+        # For tls-crypt-v2, generate client-specific key
+        client_tls_key_path = base / "private" / f"{client.common_name}.tls-crypt-v2.key"
+        if not client_tls_key_path.exists():
+            _run([
+                "openvpn", "--tls-crypt-v2", str(tls_key_path),
+                "--genkey", "tls-crypt-v2-client", str(client_tls_key_path)
+            ])
+        tls_section = f"<tls-crypt-v2>\n{_read_text(client_tls_key_path)}\n</tls-crypt-v2>"
+        key_direction = ""
+    elif tls_mode == "tls-crypt":
+        tls_section = f"<tls-crypt>\n{_read_text(tls_key_path)}\n</tls-crypt>"
+        key_direction = ""
+    else:  # tls-auth
+        tls_section = f"<tls-auth>\n{_read_text(tls_key_path)}\n</tls-auth>"
+        key_direction = "key-direction 1\n"
 
     template = f"""client
 dev tun
@@ -149,8 +178,7 @@ persist-tun
 remote-cert-tls server
 cipher AES-256-GCM
 auth SHA256
-key-direction 1
-verb 3
+{key_direction}verb 3
 
 <ca>
 {_read_text(ca_path)}
@@ -161,9 +189,7 @@ verb 3
 <key>
 {_read_text(key_path)}
 </key>
-<tls-auth>
-{_read_text(ta_path)}
-</tls-auth>
+{tls_section}
 """
     export_dir = settings.openvpn_client_export_path
     export_dir.mkdir(parents=True, exist_ok=True)
