@@ -418,11 +418,20 @@ $COMPOSE_CMD up -d --build
 
 # 等待服务启动
 log_info "等待服务启动..."
-sleep 8
+sleep 10
+
+# 检查容器是否正常运行
+if ! docker ps | grep -q "ovpn-backend.*Up"; then
+    log_error "后端容器启动失败"
+    docker logs ovpn-backend --tail 50
+    exit 1
+fi
+
+log_info "✓ 容器启动成功"
 
 # 同步管理员账号（确保密码与配置一致）
 log_info "同步管理员账号..."
-docker exec ovpn-backend python -c "
+if ! docker exec ovpn-backend python -c "
 from app.db.session import SessionLocal
 from app import crud
 from app.schemas.user import UserCreate
@@ -451,14 +460,38 @@ crud.user.create(
 )
 db.close()
 print('✓ 管理员账号已同步')
-" 2>&1 | grep -v "bcrypt" || true
+" 2>&1 | grep -v "bcrypt"; then
+    log_error "管理员账号同步失败"
+    exit 1
+fi
 
 log_info "✓ 管理员账号同步完成"
 
 # 导入 Easy-RSA 证书到数据库
 log_info "正在导入 Easy-RSA 证书到数据库..."
-docker exec ovpn-backend python -m app.scripts.import_certs 2>&1 | grep -v "bcrypt" || true
-log_info "✓ 证书导入完成"
+if ! docker exec ovpn-backend python -m app.scripts.import_certs 2>&1 | tee /tmp/import-certs.log | grep -v "bcrypt"; then
+    log_error "证书导入失败，查看日志:"
+    cat /tmp/import-certs.log
+    exit 1
+fi
+
+# 验证导入结果
+CERT_COUNT=$(docker exec ovpn-backend python -c "
+from app.db.session import SessionLocal
+from app import crud
+db = SessionLocal()
+certs = crud.certificate.get_multi(db, limit=100)
+print(len(certs))
+db.close()
+" 2>&1 | grep -v "bcrypt" | tail -1)
+
+log_info "✓ 证书导入完成 (导入 $CERT_COUNT 个证书)"
+
+if [[ "$CERT_COUNT" == "0" ]]; then
+    log_warn "警告: 没有导入任何证书,请检查 Easy-RSA 目录"
+    log_warn "Easy-RSA 路径: $EASYRSA_PATH/pki/issued/"
+    docker exec ovpn-backend ls -la /etc/openvpn/server/easy-rsa/pki/issued/ || true
+fi
 
 # 检查服务状态
 BACKEND_STATUS=$($COMPOSE_CMD ps backend | grep -c "Up" || echo "0")
