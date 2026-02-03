@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: openvpn-web-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - JWT_SECRET=${JWT_SECRET:-change-this-secret-key-in-production}
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - OPENVPN_SCRIPT_PATH=/app/openvpn-install.sh
+      - CLIENT_CONFIG_DIR=/root
+    volumes:
+      - ../openvpn-install.sh:/app/openvpn-install.sh:ro
+      - /etc/openvpn:/etc/openvpn
+      - /root:/root
+      - /var/run/openvpn-server:/var/run/openvpn-server
+      - /var/log/openvpn:/var/log/openvpn
+    networks:
+      - openvpn-web
+    privileged: true
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: openvpn-web-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - openvpn-web
+
+networks:
+  openvpn-web:
+    driver: bridge
