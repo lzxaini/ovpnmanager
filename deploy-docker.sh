@@ -329,9 +329,10 @@ services:
     volumes:
       # SQLite 数据库
       - ./backend/data:/app/data
-      # OpenVPN 配置 (只读)
+      # OpenVPN 配置目录
       - /etc/openvpn/server:/etc/openvpn/server:ro
-      - /etc/openvpn/easy-rsa:/etc/openvpn/easy-rsa:ro
+      # Easy-RSA 目录 (需要写权限以生成证书)
+      - /etc/openvpn/server/easy-rsa:/etc/openvpn/server/easy-rsa
       # 日志 (只读)
       - /var/log/openvpn:/var/log/openvpn:ro
       # 可写目录
