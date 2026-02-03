@@ -346,6 +346,14 @@ if [[ "$MANAGEMENT_TYPE" == "unix" ]]; then
       - /var/run/openvpn-server:/var/run/openvpn-server
 EOF
 fi
+
+cat >> docker-compose.yml <<EOF
+      # systemd 支持
+      - /run/systemd:/run/systemd:ro
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
+    env_file:
+      - backend/.env
+
   # 前端服务
   frontend:
     build:
@@ -357,7 +365,7 @@ fi
       - "8080:80"
     depends_on:
       - backend
-EOF container_name: ovpn-frontend
+EOF
     restart: unless-stopped
     ports:
       - "8080:80"
