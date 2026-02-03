@@ -142,9 +142,9 @@ def import_certificates_from_easyrsa(db: Session) -> dict[str, int]:
             cert_create = CertificateCreate(
                 common_name=cn,
                 serial_number=cert_info.get("serial", ""),
-                issued_at=cert_info.get("issued_at"),
-                expires_at=cert_info.get("expires_at"),
-                revoked=False,
+                not_before=cert_info.get("not_before"),
+                not_after=cert_info.get("not_after"),
+                status="valid",
             )
             crud.certificate.create(db, cert_create)
 
@@ -213,8 +213,8 @@ def _get_cert_info(cert_path: Path) -> dict | None:
 
         return {
             "serial": serial,
-            "issued_at": issued_at,
-            "expires_at": expires_at,
+            "not_before": issued_at,
+            "not_after": expires_at,
         }
     except Exception:
         return None
