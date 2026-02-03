@@ -296,7 +296,7 @@ LOG_LEVEL=INFO
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 
 # ========== CORS 配置 ==========
-CORS_ORIGINS=["http://localhost","http://127.0.0.1","http://$PUBLIC_IP"]
+CORS_ORIGINS=["http://localhost:8080","http://127.0.0.1:8080","http://$PUBLIC_IP:8080"]
 EOF
 
 log_info "✓ 配置文件已生成: backend/.env"
