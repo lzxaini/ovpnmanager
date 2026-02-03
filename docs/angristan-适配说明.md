@@ -115,6 +115,43 @@ def import_certificates_from_easyrsa(db: Session):
 
 ## 故障排查
 
+### 0. 快速诊断脚本
+
+在服务器上执行:
+```bash
+cd ~/ovpnmanager
+
+# 检查容器名称
+docker ps | grep ovpn
+
+# 应该看到:
+# ovpn-backend   (后端容器)
+# ovpn-frontend  (前端容器)
+
+# 手动执行证书导入
+docker exec ovpn-backend python -m app.scripts.import_certs
+
+# 查看导入结果
+docker exec ovpn-backend python -c "
+from app.db.session import SessionLocal
+from app import crud
+db = SessionLocal()
+certs = crud.certificate.get_multi(db, limit=100)
+clients = crud.client.get_multi(db, limit=100)
+print(f'证书数量: {len(certs)}')
+print(f'客户端数量: {len(clients)}')
+for cert in certs[:5]:
+    print(f'  - {cert.common_name}')
+db.close()
+"
+
+# 测试 systemctl 命令
+docker exec ovpn-backend systemctl status openvpn-server@server --no-pager
+
+# 检查 Easy-RSA 目录
+docker exec ovpn-backend ls -la /etc/openvpn/server/easy-rsa/pki/issued/
+```
+
 ### 1. 如果证书导入失败
 
 查看导入日志:

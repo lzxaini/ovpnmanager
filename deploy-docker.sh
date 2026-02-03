@@ -457,7 +457,7 @@ log_info "✓ 管理员账号同步完成"
 
 # 导入 Easy-RSA 证书到数据库
 log_info "正在导入 Easy-RSA 证书到数据库..."
-docker exec ovpnmanager-backend-1 python -m app.scripts.import_certs 2>&1 | grep -v "bcrypt" || true
+docker exec ovpn-backend python -m app.scripts.import_certs 2>&1 | grep -v "bcrypt" || true
 log_info "✓ 证书导入完成"
 
 # 检查服务状态
