@@ -16,23 +16,52 @@
         style="width: 100%"
         stripe
       >
-        <el-table-column prop="name" label="客户端名称" width="180" />
-        <el-table-column prop="status" label="状态" width="120">
+        <el-table-column prop="name" label="客户端名称" width="150" fixed />
+        <el-table-column prop="status" label="状态" width="100">
           <template #default="{ row }">
             <el-tag :type="row.status === 'valid' ? 'success' : 'danger'">
               {{ row.status === 'valid' ? '有效' : '已吊销' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="expiry" label="过期时间" width="180" />
-        <el-table-column prop="connected" label="连接状态" width="120">
+        <el-table-column prop="connected" label="连接状态" width="100">
           <template #default="{ row }">
             <el-tag :type="row.connected === 'yes' ? 'success' : 'info'">
               {{ row.connected === 'yes' ? '在线' : '离线' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" min-width="300">
+        <el-table-column prop="real_address" label="真实IP" width="150">
+          <template #default="{ row }">
+            {{ row.real_address || '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="vpn_ip" label="VPN IP" width="120">
+          <template #default="{ row }">
+            {{ row.vpn_ip || '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="流量统计" width="150">
+          <template #default="{ row }">
+            <div v-if="row.bytes_received">
+              <div>↓ {{ formatBytes(row.bytes_received) }}</div>
+              <div>↑ {{ formatBytes(row.bytes_sent) }}</div>
+            </div>
+            <span v-else>-</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="connected_since" label="连接时间" width="160">
+          <template #default="{ row }">
+            {{ row.connected_since || '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="expiry" label="过期时间" width="120" />
+        <el-table-column prop="days_remaining" label="剩余天数" width="100">
+          <template #default="{ row }">
+            {{ row.days_remaining !== null ? row.days_remaining + ' 天' : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" min-width="300" fixed="right">
           <template #default="{ row }">
             <el-button
               type="primary"
@@ -170,6 +199,14 @@ const loadClients = async () => {
   } finally {
     loading.value = false
   }
+}
+
+const formatBytes = (bytes) => {
+  if (!bytes || bytes === 0) return '0 B'
+  const k = 1024
+  const sizes = ['B', 'KB', 'MB', 'GB', 'TB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+  return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i]
 }
 
 const handleAddClient = async () => {

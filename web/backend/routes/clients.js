@@ -12,7 +12,7 @@ router.use(authenticateToken);
 
 /**
  * GET /api/clients
- * List all OpenVPN clients with online status
+ * List all OpenVPN clients with online status and connection details
  */
 router.get('/', async (req, res) => {
   try {
@@ -23,22 +23,34 @@ router.get('/', async (req, res) => {
       return res.status(500).json({ error: clientsResult.error });
     }
 
-    // Get connected clients
+    // Get connected clients with details
     const connectedResult = await executeScript(['server', 'status', '--format', 'json']);
     
-    // Build a set of connected client names
-    const connectedClients = new Set();
+    // Build a map of connected client details
+    const connectedClientsMap = new Map();
     if (connectedResult.success && connectedResult.data && connectedResult.data.clients) {
       connectedResult.data.clients.forEach(client => {
-        connectedClients.add(client.name);
+        connectedClientsMap.set(client.name, {
+          real_address: client.real_address,
+          vpn_ip: client.vpn_ip,
+          bytes_received: client.bytes_received,
+          bytes_sent: client.bytes_sent,
+          connected_since: client.connected_since
+        });
       });
     }
 
-    // Merge online status into client list
-    const clients = clientsResult.data.clients.map(client => ({
-      ...client,
-      connected: connectedClients.has(client.name) ? 'yes' : 'no'
-    }));
+    // Merge online status and connection details into client list
+    const clients = clientsResult.data.clients.map(client => {
+      const isConnected = connectedClientsMap.has(client.name);
+      const connectionDetails = isConnected ? connectedClientsMap.get(client.name) : null;
+      
+      return {
+        ...client,
+        connected: isConnected ? 'yes' : 'no',
+        ...(connectionDetails || {})
+      };
+    });
 
     res.json({ clients });
   } catch (error) {
