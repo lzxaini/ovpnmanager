@@ -305,7 +305,8 @@ log_info "✓ 配置文件已生成: backend/.env"
 log_info "✓ 更新 docker-compose.yml..."
 
 cat > docker-compose.yml <<EOF
-version: '3.8'
+# Docker Compose 配置文件
+# 注意: version 字段在 Docker Compose V2 中已废弃，可以移除
 
 services:
   # 后端服务
@@ -353,7 +354,7 @@ cat >> docker-compose.yml <<EOF
     container_name: ovpn-frontend
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - backend
     environment:
@@ -361,6 +362,39 @@ cat >> docker-compose.yml <<EOF
 EOF
 
 log_info "✓ docker-compose.yml 已更新"
+
+# 修复前端 Nginx 配置（使用 localhost 而不是 backend）
+log_info "✓ 更新 Nginx 配置..."
+cat > frontend/nginx.conf <<'NGINX_EOF'
+server {
+    listen 80;
+    server_name _;
+    
+    # 前端静态资源
+    location /ovpnmanager/ {
+        root /usr/share/nginx/html;
+        try_files $uri $uri/ /ovpnmanager/index.html;
+        index index.html;
+    }
+    
+    # 后端 API 代理（backend 使用 host 网络，所以用 localhost）
+    location /api {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+    
+    location = / {
+        return 301 /ovpnmanager/;
+    }
+}
+NGINX_EOF
 
 # 创建数据目录
 mkdir -p backend/data
@@ -391,8 +425,8 @@ if [[ "$BACKEND_STATUS" == "1" && "$FRONTEND_STATUS" == "1" ]]; then
     echo "=========================================="
     echo ""
     echo "📍 访问地址:"
-    echo "   Web 界面: http://$PUBLIC_IP/ovpnmanager/"
-    echo "   API 文档: http://$PUBLIC_IP:8000/api/openapi.json"
+    echo "   Web 界面: http://$PUBLIC_IP:8080/ovpnmanager/"
+    echo "   后端健康: http://$PUBLIC_IP:8000/api/health/live"
     echo ""
     echo "👤 管理员账号:"
     echo "   用户名: $ADMIN_USERNAME"
