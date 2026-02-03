@@ -420,6 +420,41 @@ $COMPOSE_CMD up -d --build
 log_info "等待服务启动..."
 sleep 8
 
+# 同步管理员账号（确保密码与配置一致）
+log_info "同步管理员账号..."
+docker exec ovpn-backend python -c "
+from app.db.session import SessionLocal
+from app import crud
+from app.schemas.user import UserCreate
+from app.core.config import get_settings
+
+settings = get_settings()
+db = SessionLocal()
+
+# 检查用户是否存在
+user = crud.user.get_by_username(db, username=settings.default_admin_username)
+if user:
+    # 删除旧用户
+    db.delete(user)
+    db.commit()
+
+# 重新创建管理员（确保密码正确）
+crud.user.create(
+    db,
+    obj_in=UserCreate(
+        username=settings.default_admin_username,
+        password=settings.default_admin_password,
+        email=None,
+        is_active=True,
+        is_superuser=True
+    )
+)
+db.close()
+print('✓ 管理员账号已同步')
+" 2>&1 | grep -v "bcrypt" || true
+
+log_info "✓ 管理员账号同步完成"
+
 # 检查服务状态
 BACKEND_STATUS=$($COMPOSE_CMD ps backend | grep -c "Up" || echo "0")
 FRONTEND_STATUS=$($COMPOSE_CMD ps frontend | grep -c "Up" || echo "0")
