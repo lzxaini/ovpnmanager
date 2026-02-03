@@ -156,6 +156,8 @@ sudo bash deploy-docker.sh
 
 详细说明请查看 [Docker 部署指南](docs/Docker部署指南.md)
 
+**angristan 脚本适配**: 如果遇到客户端列表为空、证书数量为0等问题,请查看 [angristan 适配说明](docs/angristan-适配说明.md)
+
 ---
 
 ### 传统部署
