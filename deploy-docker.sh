@@ -301,11 +301,11 @@ EOF
 
 log_info "✓ 配置文件已生成: backend/.env"
 
-# 生成前端 .env 文件（使用相对路径）
+# 生成前端 .env 文件（使用公网 IP + 端口）
 log_info "✓ 生成前端配置文件..."
 cat > frontend/.env <<EOF
-# 后端 API 地址（相对路径，通过 Nginx 代理）
-VITE_API_BASE=/api
+# 后端 API 地址（完整 URL）
+VITE_API_BASE=http://$PUBLIC_IP:8000/api
 EOF
 log_info "✓ 前端配置已生成: frontend/.env"
 
