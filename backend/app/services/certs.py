@@ -154,10 +154,17 @@ def export_ovpn(client: Client, remote_host: str, remote_port: int) -> str:
         # For tls-crypt-v2, generate client-specific key
         client_tls_key_path = base / "private" / f"{client.common_name}.tls-crypt-v2.key"
         if not client_tls_key_path.exists():
-            _run([
-                "openvpn", "--tls-crypt-v2", str(tls_key_path),
-                "--genkey", "tls-crypt-v2-client", str(client_tls_key_path)
-            ])
+            try:
+                _run([
+                    "/usr/sbin/openvpn", "--tls-crypt-v2", str(tls_key_path),
+                    "--genkey", "tls-crypt-v2-client", str(client_tls_key_path)
+                ])
+            except FileNotFoundError:
+                # Fallback to PATH search
+                _run([
+                    "openvpn", "--tls-crypt-v2", str(tls_key_path),
+                    "--genkey", "tls-crypt-v2-client", str(client_tls_key_path)
+                ])
         tls_section = f"<tls-crypt-v2>\n{_read_text(client_tls_key_path)}\n</tls-crypt-v2>"
         key_direction = ""
     elif tls_mode == "tls-crypt":
