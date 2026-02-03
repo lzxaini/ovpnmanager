@@ -129,17 +129,43 @@ push "socket-flags TCP_NODELAY"
 ```
 
 ## 快速开始
-### 前置条件
-- Python 3.10+（建议使用 virtualenv）
-- Node.js 18+ 与 npm / pnpm / yarn（示例使用 npm）
-- 目标主机已安装并以 `systemd` 管理的 OpenVPN 服务，服务名默认为 `openvpn@server`
+
+### Docker 部署（推荐）⭐
+**最简单的部署方式**，适配 angristan 脚本，一键完成所有配置：
+
+```bash
+# 前提：已用 angristan 脚本安装 OpenVPN
+# 如未安装，执行：
+# wget https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+# chmod +x openvpn-install.sh && sudo ./openvpn-install.sh
+
+# 一键部署 Docker 版本
+sudo bash deploy-docker.sh
+
+# 按提示输入管理员密码，其他配置自动检测
+# 部署完成后访问: http://你的IP/ovpnmanager/
+```
+
+**脚本特点**：
+- ✅ 自动检测 OpenVPN 配置（angristan 或手动安装）
+- ✅ 自动识别 Management 接口类型（Unix Socket / TCP）
+- ✅ 自动安装 Docker（如未安装）
+- ✅ 自动生成配置文件和随机密钥
+- ✅ 自动获取公网 IP 和端口
+- ✅ 适配 Ubuntu 22.04+
+
+详细说明请查看 [Docker 部署指南](docs/Docker部署指南.md)
+
+---
+
+### 传统部署
 
 ### 后端启动
 ```bash
 cd backend
-python -m venv .venv && source .venv/bin/activate
+python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-# 如需调整环境变量，请编辑 .env
+# 如需调整环境变量,复制 .env-example 为 .env 并编辑
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 API 文档：`http://localhost:8000/api/openapi.json`
@@ -148,8 +174,8 @@ API 文档：`http://localhost:8000/api/openapi.json`
 ```bash
 cd frontend
 npm install
-# 如后端地址不同，创建 .env.local 或 .env 设置 VITE_API_BASE，例如：
-# VITE_API_BASE=http://localhost:8000/api
+# 如后端地址不同,复制 .env-example 为 .env 或 .env.local 设置 VITE_API_BASE
+# 例如: VITE_API_BASE=http://localhost:8000/api
 npm run dev -- --host 0.0.0.0 --port 8010
 ```
 前端会向 `VITE_API_BASE` 发送请求；路由基础路径为 `/ovpnmanager/`。
@@ -160,6 +186,8 @@ cd frontend
 npm run build
 # 输出目录：frontend/ovpnmanager
 ```
+
+---
 
 ## 认证与默认账号
 - 登录接口：`POST /api/auth/login`

@@ -8,7 +8,7 @@ env/
 venv/
 .venv/
 .env
-
+.history
 # SQLite
 backend/data/*.db
 

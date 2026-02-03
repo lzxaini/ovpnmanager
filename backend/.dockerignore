@@ -1,0 +1,58 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# 虚拟环境
+venv/
+.venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志
+*.log
+logs/
+
+# 数据库（构建时不需要）
+*.db
+*.sqlite
+*.sqlite3
+data/
+
+# 测试
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 环境变量（安全）
+.env
+.env.local
+.env.*.local
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# 文档
+README.md
+docs/
+*.md
+
+# Docker 本身
+Dockerfile
+docker-compose*.yml
+.dockerignore

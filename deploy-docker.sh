@@ -1,0 +1,419 @@
+#!/bin/bash
+###
+# OpenVPN Manager - Ubuntu 一键 Docker 部署脚本
+# 适配 angristan/openvpn-install 脚本
+# 系统要求: Ubuntu 22.04+ 已安装 OpenVPN
+###
+
+set -e
+
+# 颜色定义
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+log_info() {
+    echo -e "${GREEN}[INFO]${NC} $1"
+}
+
+log_warn() {
+    echo -e "${YELLOW}[WARN]${NC} $1"
+}
+
+log_error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+log_step() {
+    echo -e "${BLUE}[STEP]${NC} $1"
+}
+
+# 检查是否为 root 用户
+if [[ $EUID -ne 0 ]]; then
+   log_error "请使用 root 或 sudo 运行此脚本"
+   echo "用法: sudo bash deploy-docker.sh"
+   exit 1
+fi
+
+clear
+echo "=========================================="
+echo "   OpenVPN Manager Docker 一键部署"
+echo "   适配 angristan 脚本 + Ubuntu 22.04"
+echo "=========================================="
+echo ""
+
+# ==================== 步骤 1: 检查 OpenVPN ====================
+log_step "1/8 检查 OpenVPN 服务..."
+
+OPENVPN_SERVICE=""
+MANAGEMENT_TYPE=""
+MANAGEMENT_SOCKET=""
+MANAGEMENT_HOST=""
+MANAGEMENT_PORT=""
+EASYRSA_PATH=""
+SERVER_CONF=""
+
+# 检测服务名
+if systemctl list-units --full --all | grep -q "openvpn-server@server.service"; then
+    OPENVPN_SERVICE="openvpn-server@server"
+    log_info "✓ 检测到 angristan 脚本安装 (openvpn-server@server)"
+elif systemctl list-units --full --all | grep -q "openvpn@server.service"; then
+    OPENVPN_SERVICE="openvpn@server"
+    log_info "✓ 检测到传统安装 (openvpn@server)"
+else
+    log_error "未检测到 OpenVPN 服务"
+    echo ""
+    echo "请先使用 angristan 脚本安装 OpenVPN："
+    echo "  wget https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh"
+    echo "  chmod +x openvpn-install.sh"
+    echo "  sudo ./openvpn-install.sh"
+    exit 1
+fi
+
+# 检查服务状态
+if ! systemctl is-active --quiet "$OPENVPN_SERVICE"; then
+    log_warn "OpenVPN 服务未运行，尝试启动..."
+    systemctl start "$OPENVPN_SERVICE"
+    sleep 2
+fi
+
+if systemctl is-active --quiet "$OPENVPN_SERVICE"; then
+    log_info "✓ OpenVPN 服务运行正常"
+else
+    log_error "OpenVPN 服务启动失败"
+    systemctl status "$OPENVPN_SERVICE"
+    exit 1
+fi
+
+# ==================== 步骤 2: 检测配置文件 ====================
+log_step "2/8 检测 OpenVPN 配置..."
+
+if [[ -f "/etc/openvpn/server/server.conf" ]]; then
+    SERVER_CONF="/etc/openvpn/server/server.conf"
+    EASYRSA_PATH="/etc/openvpn/server/easy-rsa"
+    log_info "✓ 配置文件: $SERVER_CONF"
+elif [[ -f "/etc/openvpn/server.conf" ]]; then
+    SERVER_CONF="/etc/openvpn/server.conf"
+    EASYRSA_PATH="/etc/openvpn/easy-rsa"
+    log_info "✓ 配置文件: $SERVER_CONF"
+else
+    log_error "未找到 OpenVPN 配置文件"
+    exit 1
+fi
+
+# 检测 Management 接口类型
+if grep -q "management.*\.sock.*unix" "$SERVER_CONF"; then
+    MANAGEMENT_TYPE="unix"
+    MANAGEMENT_SOCKET=$(grep "management" "$SERVER_CONF" | awk '{print $2}')
+    log_info "✓ Management 接口: Unix Socket"
+    log_info "  Socket 路径: $MANAGEMENT_SOCKET"
+elif grep -q "^management" "$SERVER_CONF"; then
+    MANAGEMENT_TYPE="tcp"
+    MANAGEMENT_HOST=$(grep "^management" "$SERVER_CONF" | awk '{print $2}')
+    MANAGEMENT_PORT=$(grep "^management" "$SERVER_CONF" | awk '{print $3}')
+    log_info "✓ Management 接口: TCP Socket"
+    log_info "  地址: $MANAGEMENT_HOST:$MANAGEMENT_PORT"
+else
+    log_error "未检测到 Management 接口配置"
+    echo ""
+    echo "请在 $SERVER_CONF 中添加以下任一配置："
+    echo "  方式1 (推荐): management /var/run/openvpn-server/server.sock unix"
+    echo "  方式2:        management 127.0.0.1 7505"
+    exit 1
+fi
+
+# ==================== 步骤 3: 检查必要目录 ====================
+log_step "3/8 检查并创建必要目录..."
+
+REQUIRED_DIRS=(
+    "/etc/openvpn/ccd"
+    "/etc/openvpn/client-configs"
+    "/var/log/openvpn"
+)
+
+for dir in "${REQUIRED_DIRS[@]}"; do
+    if [[ ! -d "$dir" ]]; then
+        mkdir -p "$dir"
+        chmod 755 "$dir"
+        log_info "✓ 创建目录: $dir"
+    else
+        log_info "✓ 目录已存在: $dir"
+    fi
+done
+
+# 检查 Socket 目录权限
+if [[ "$MANAGEMENT_TYPE" == "unix" ]]; then
+    SOCKET_DIR=$(dirname "$MANAGEMENT_SOCKET")
+    if [[ -d "$SOCKET_DIR" ]]; then
+        chmod 755 "$SOCKET_DIR"  # 修改权限以便 Docker 容器访问
+        log_info "✓ Socket 目录权限已调整: $SOCKET_DIR"
+    fi
+fi
+
+# ==================== 步骤 4: 安装 Docker ====================
+log_step "4/8 检查 Docker 环境..."
+
+if ! command -v docker &> /dev/null; then
+    log_warn "Docker 未安装，开始安装..."
+    apt-get update
+    apt-get install -y ca-certificates curl gnupg lsb-release
+    
+    # 添加 Docker 官方 GPG key
+    mkdir -p /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    
+    # 添加 Docker 仓库
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+    
+    apt-get update
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+    log_info "✓ Docker 安装完成"
+else
+    log_info "✓ Docker 已安装"
+fi
+
+# 检查 Docker Compose
+if docker compose version &> /dev/null; then
+    log_info "✓ Docker Compose 已安装 (V2)"
+    COMPOSE_CMD="docker compose"
+elif command -v docker-compose &> /dev/null; then
+    log_info "✓ Docker Compose 已安装 (V1)"
+    COMPOSE_CMD="docker-compose"
+else
+    log_warn "Docker Compose 未安装，正在安装..."
+    apt-get install -y docker-compose
+    COMPOSE_CMD="docker-compose"
+fi
+
+# 启动 Docker 服务
+if ! systemctl is-active --quiet docker; then
+    systemctl start docker
+    systemctl enable docker
+fi
+log_info "✓ Docker 服务运行正常"
+
+# ==================== 步骤 5: 获取网络配置 ====================
+log_step "5/8 获取网络配置..."
+
+# 获取公网 IP
+PUBLIC_IP=$(curl -s --max-time 5 https://api.ipify.org 2>/dev/null || curl -s --max-time 5 https://ifconfig.me 2>/dev/null || echo "")
+if [[ -z "$PUBLIC_IP" ]]; then
+    # 尝试从配置文件中读取
+    if grep -q "^remote" "$SERVER_CONF"; then
+        PUBLIC_IP=$(grep "^remote" "$SERVER_CONF" | awk '{print $2}' | head -1)
+    fi
+fi
+
+if [[ -z "$PUBLIC_IP" ]]; then
+    log_warn "无法自动获取公网 IP"
+    read -p "请手动输入公网 IP: " PUBLIC_IP
+fi
+log_info "✓ 公网 IP: $PUBLIC_IP"
+
+# 获取 OpenVPN 端口
+OPENVPN_PORT=$(grep "^port" "$SERVER_CONF" | awk '{print $2}' || echo "1194")
+log_info "✓ OpenVPN 端口: $OPENVPN_PORT"
+
+# 获取协议
+OPENVPN_PROTO=$(grep "^proto" "$SERVER_CONF" | awk '{print $2}' || echo "udp")
+log_info "✓ OpenVPN 协议: $OPENVPN_PROTO"
+
+# ==================== 步骤 6: 配置管理员密码 ====================
+log_step "6/8 配置管理员账户..."
+
+echo ""
+read -p "设置管理员用户名 (默认: admin): " ADMIN_USERNAME
+ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+
+read -sp "设置管理员密码 (默认: admin456): " ADMIN_PASSWORD
+echo ""
+ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin456}
+
+# 生成随机 SECRET_KEY
+SECRET_KEY=$(openssl rand -hex 32)
+
+# ==================== 步骤 7: 生成配置文件 ====================
+log_step "7/8 生成配置文件..."
+
+# 备份旧配置
+if [[ -f "backend/.env" ]]; then
+    cp backend/.env "backend/.env.backup.$(date +%Y%m%d_%H%M%S)"
+    log_info "✓ 已备份旧配置"
+fi
+
+# 生成 backend/.env
+cat > backend/.env <<EOF
+# OpenVPN Manager 配置文件
+# 自动生成于: $(date '+%Y-%m-%d %H:%M:%S')
+
+# ========== 安全配置 ==========
+SECRET_KEY=$SECRET_KEY
+DEFAULT_ADMIN_USERNAME=$ADMIN_USERNAME
+DEFAULT_ADMIN_PASSWORD=$ADMIN_PASSWORD
+
+# ========== OpenVPN 服务配置 ==========
+OPENVPN_SERVICE_NAME=$OPENVPN_SERVICE
+PUBLIC_IP=$PUBLIC_IP
+PUBLIC_PORT=$OPENVPN_PORT
+
+# ========== 路径配置 ==========
+OPENVPN_BASE_PATH=/etc/openvpn
+EASYRSA_PATH=$EASYRSA_PATH
+CCD_PATH=/etc/openvpn/ccd
+OPENVPN_CLIENT_EXPORT_PATH=/etc/openvpn/client-configs
+OPENVPN_STATUS_PATH=/var/log/openvpn/status.log
+OPENVPN_CRL_PATH=/etc/openvpn/server/crl.pem
+TA_KEY_PATH=/etc/openvpn/server/ta.key
+SERVER_CONF_PATH=$SERVER_CONF
+
+EOF
+
+# Management 接口配置
+if [[ "$MANAGEMENT_TYPE" == "unix" ]]; then
+    cat >> backend/.env <<EOF
+# ========== Management 接口 (Unix Socket) ==========
+OPENVPN_MANAGEMENT_SOCKET=$MANAGEMENT_SOCKET
+
+EOF
+else
+    cat >> backend/.env <<EOF
+# ========== Management 接口 (TCP Socket) ==========
+OPENVPN_MANAGEMENT_HOST=$MANAGEMENT_HOST
+OPENVPN_MANAGEMENT_PORT=$MANAGEMENT_PORT
+
+EOF
+fi
+
+# 其他配置
+cat >> backend/.env <<EOF
+# ========== 应用配置 ==========
+DEPLOY_ENV=PROD
+LOG_LEVEL=INFO
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+
+# ========== CORS 配置 ==========
+CORS_ORIGINS=["http://localhost","http://127.0.0.1","http://$PUBLIC_IP"]
+EOF
+
+log_info "✓ 配置文件已生成: backend/.env"
+
+# 更新 docker-compose.yml
+log_info "✓ 更新 docker-compose.yml..."
+
+cat > docker-compose.yml <<EOF
+version: '3.8'
+
+services:
+  # 后端服务
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ovpn-backend
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    volumes:
+      # SQLite 数据库
+      - ./backend/data:/app/data
+      # OpenVPN 配置 (只读)
+      - /etc/openvpn/server:/etc/openvpn/server:ro
+      - /etc/openvpn/easy-rsa:/etc/openvpn/easy-rsa:ro
+      # 日志 (只读)
+      - /var/log/openvpn:/var/log/openvpn:ro
+      # 可写目录
+      - /etc/openvpn/ccd:/etc/openvpn/ccd
+      - /etc/openvpn/client-configs:/etc/openvpn/client-configs
+EOF
+
+# 根据 Management 类型添加不同的挂载
+if [[ "$MANAGEMENT_TYPE" == "unix" ]]; then
+    cat >> docker-compose.yml <<EOF
+      # Unix Socket
+      - /var/run/openvpn-server:/var/run/openvpn-server
+EOF
+fi
+
+cat >> docker-compose.yml <<EOF
+      # systemd 支持
+      - /run/systemd:/run/systemd:ro
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
+    env_file:
+      - backend/.env
+
+  # 前端服务
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ovpn-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_BASE=http://$PUBLIC_IP:8000/api
+EOF
+
+log_info "✓ docker-compose.yml 已更新"
+
+# 创建数据目录
+mkdir -p backend/data
+chmod 755 backend/data
+
+# ==================== 步骤 8: 启动服务 ====================
+log_step "8/8 启动 Docker 服务..."
+
+# 停止旧服务
+$COMPOSE_CMD down 2>/dev/null || true
+
+# 构建并启动
+log_info "正在构建镜像，这可能需要几分钟..."
+$COMPOSE_CMD up -d --build
+
+# 等待服务启动
+log_info "等待服务启动..."
+sleep 8
+
+# 检查服务状态
+BACKEND_STATUS=$($COMPOSE_CMD ps backend | grep -c "Up" || echo "0")
+FRONTEND_STATUS=$($COMPOSE_CMD ps frontend | grep -c "Up" || echo "0")
+
+echo ""
+echo "=========================================="
+if [[ "$BACKEND_STATUS" == "1" && "$FRONTEND_STATUS" == "1" ]]; then
+    echo -e "${GREEN}✓ 部署成功！${NC}"
+    echo "=========================================="
+    echo ""
+    echo "📍 访问地址:"
+    echo "   Web 界面: http://$PUBLIC_IP/ovpnmanager/"
+    echo "   API 文档: http://$PUBLIC_IP:8000/api/openapi.json"
+    echo ""
+    echo "👤 管理员账号:"
+    echo "   用户名: $ADMIN_USERNAME"
+    echo "   密码: $ADMIN_PASSWORD"
+    echo ""
+    echo "📊 管理命令:"
+    echo "   查看日志: $COMPOSE_CMD logs -f"
+    echo "   重启服务: $COMPOSE_CMD restart"
+    echo "   停止服务: $COMPOSE_CMD stop"
+    echo "   启动服务: $COMPOSE_CMD start"
+    echo ""
+    echo "📁 重要文件:"
+    echo "   配置文件: $(pwd)/backend/.env"
+    echo "   数据库: $(pwd)/backend/data/app.db"
+    echo ""
+else
+    echo -e "${RED}✗ 部署失败${NC}"
+    echo "=========================================="
+    echo ""
+    log_error "服务状态异常，查看日志："
+    $COMPOSE_CMD logs --tail=50
+    exit 1
+fi
+
