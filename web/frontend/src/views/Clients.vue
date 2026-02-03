@@ -19,8 +19,8 @@
         <el-table-column prop="name" label="客户端名称" width="180" />
         <el-table-column prop="status" label="状态" width="120">
           <template #default="{ row }">
-            <el-tag :type="row.status === 'Valid' ? 'success' : 'danger'">
-              {{ row.status === 'Valid' ? '有效' : '已吊销' }}
+            <el-tag :type="row.status === 'valid' ? 'success' : 'danger'">
+              {{ row.status === 'valid' ? '有效' : '已吊销' }}
             </el-tag>
           </template>
         </el-table-column>
@@ -43,7 +43,7 @@
               下载配置
             </el-button>
             <el-button
-              v-if="row.status === 'Valid' && row.connected === 'yes'"
+              v-if="row.status === 'valid' && row.connected === 'yes'"
               type="warning"
               size="small"
               :icon="SwitchButton"
@@ -52,7 +52,7 @@
               强制下线
             </el-button>
             <el-button
-              v-if="row.status === 'Valid'"
+              v-if="row.status === 'valid'"
               type="info"
               size="small"
               :icon="RefreshRight"
@@ -61,7 +61,7 @@
               续期
             </el-button>
             <el-button
-              v-if="row.status === 'Valid'"
+              v-if="row.status === 'valid'"
               type="danger"
               size="small"
               :icon="Delete"

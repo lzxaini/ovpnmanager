@@ -12,17 +12,35 @@ router.use(authenticateToken);
 
 /**
  * GET /api/clients
- * List all OpenVPN clients
+ * List all OpenVPN clients with online status
  */
 router.get('/', async (req, res) => {
   try {
-    const result = await executeScript(['client', 'list', '--format', 'json']);
+    // Get client list
+    const clientsResult = await executeScript(['client', 'list', '--format', 'json']);
     
-    if (result.success) {
-      res.json(result.data);
-    } else {
-      res.status(500).json({ error: result.error });
+    if (!clientsResult.success) {
+      return res.status(500).json({ error: clientsResult.error });
     }
+
+    // Get connected clients
+    const connectedResult = await executeScript(['server', 'status', '--format', 'json']);
+    
+    // Build a set of connected client names
+    const connectedClients = new Set();
+    if (connectedResult.success && connectedResult.data && connectedResult.data.clients) {
+      connectedResult.data.clients.forEach(client => {
+        connectedClients.add(client.name);
+      });
+    }
+
+    // Merge online status into client list
+    const clients = clientsResult.data.clients.map(client => ({
+      ...client,
+      connected: connectedClients.has(client.name) ? 'yes' : 'no'
+    }));
+
+    res.json({ clients });
   } catch (error) {
     console.error('List clients error:', error);
     res.status(500).json({ error: 'Failed to list clients' });
