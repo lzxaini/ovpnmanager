@@ -3,7 +3,7 @@
  # @Author: 17630921248 1245634367@qq.com
  # @Date: 2026-02-03 14:02:12
  # @LastEditors: 17630921248 1245634367@qq.com
- # @LastEditTime: 2026-02-03 14:02:13
+ # @LastEditTime: 2026-02-03 17:53:08
  # @FilePath: \ovpnmanager\openvpn-install.sh
  # @Description: Fuck Bug
  # 微信：lizx2066
@@ -3878,9 +3878,9 @@ function listConnectedClients() {
 		if [[ $format == "json" ]]; then
 			echo '{"clients":[]}'
 		else
-			log_header "Connected Clients"
-			log_info "No clients currently connected."
-			log_info "Note: Data refreshes every 60 seconds."
+			log_header "已连接的客户端"
+			log_info "当前没有客户端连接。"
+			log_info "注意：数据每 60 秒刷新一次。"
 		fi
 		return
 	fi
@@ -3918,7 +3918,7 @@ function listConnectedClients() {
 			printf "   %-20s %-22s %-16s %-20s %s\n" "$name" "$real_addr" "$vpn_ip" "$connected_since" "$transfer"
 		done
 		log_menu ""
-		log_info "Note: Data refreshes every 60 seconds."
+		log_info "注意：数据每 60 秒刷新一次。"
 	fi
 }
 
@@ -3937,7 +3937,7 @@ function newClient() {
 	# Only prompt for cert duration if not already set
 	if [[ -z $CLIENT_CERT_DURATION_DAYS ]] || ! [[ $CLIENT_CERT_DURATION_DAYS =~ ^[0-9]+$ ]] || [[ $CLIENT_CERT_DURATION_DAYS -lt 1 ]]; then
 		log_menu ""
-		log_prompt "How many days should the client certificate be valid for?"
+		log_prompt "证书有效期（天）:"
 		until [[ $CLIENT_CERT_DURATION_DAYS =~ ^[0-9]+$ ]] && [[ $CLIENT_CERT_DURATION_DAYS -ge 1 ]]; do
 			read -rp "Certificate validity (days): " -e -i $DEFAULT_CERT_VALIDITY_DURATION_DAYS CLIENT_CERT_DURATION_DAYS
 		done
@@ -3946,10 +3946,10 @@ function newClient() {
 	# Only prompt for password if not already set
 	if ! [[ $PASS =~ ^[1-2]$ ]]; then
 		log_menu ""
-		log_prompt "Do you want to protect the configuration file with a password?"
-		log_prompt "(e.g. encrypt the private key with a password)"
-		log_menu "   1) Add a passwordless client"
-		log_menu "   2) Use a password for the client"
+		log_prompt "是否要为配置文件设置密码保护？"
+		log_prompt "(例如，用密码加密私钥)"
+		log_menu "   1) 添加无密码客户端"
+		log_menu "   2) 为客户端使用密码"
 		until [[ $PASS =~ ^[1-2]$ ]]; do
 			read -rp "Select an option [1-2]: " -e -i 1 PASS
 		done
@@ -4334,10 +4334,10 @@ function renewMenu() {
 	fi
 
 	log_menu ""
-	log_prompt "What do you want to renew?"
-	log_menu "   1) Renew a client certificate"
-	log_menu "   2) Renew the server certificate $server_expiry"
-	log_menu "   3) Back to main menu"
+	log_prompt "你想续订什么？"
+	log_menu "   1) 续订客户端证书"
+	log_menu "   2) 续订服务器证书 $server_expiry"
+	log_menu "   3) 返回主菜单"
 	until [[ ${RENEW_OPTION:-$renew_option} =~ ^[1-3]$ ]]; do
 		read -rp "Select an option [1-3]: " renew_option
 	done
