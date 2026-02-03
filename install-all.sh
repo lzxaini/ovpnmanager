@@ -215,7 +215,7 @@ else
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         log_info "启动 OpenVPN 安装脚本..."
         sleep 2
-        bash "$INSTALL_DIR/openvpn-install.sh"
+        bash "$INSTALL_DIR/openvpn-install.sh interactive"
         
         # 检查是否安装成功
         if [[ -f /etc/openvpn/server/server.conf ]]; then
@@ -228,7 +228,7 @@ else
         log_warn "已跳过 OpenVPN 安装"
         echo ""
         echo "请稍后手动安装 OpenVPN 服务器，然后重新运行此脚本："
-        echo "  bash $INSTALL_DIR/openvpn-install.sh"
+        echo "  bash $INSTALL_DIR/openvpn-install.sh interactive"
         echo "  bash $0"
         exit 0
     fi
