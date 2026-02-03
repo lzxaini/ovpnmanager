@@ -259,4 +259,66 @@ router.post('/:name/disconnect', async (req, res) => {
   }
 });
 
+/**
+ * POST /api/clients/:name/delete
+ * Permanently delete a client certificate (must be revoked first)
+ */
+router.post('/:name/delete', async (req, res) => {
+  const { name } = req.params;
+
+  if (!name || !name.match(/^[a-zA-Z0-9_-]+$/)) {
+    return res.status(400).json({ error: 'Invalid client name' });
+  }
+
+  try {
+    const { exec } = require('child_process');
+    const util = require('util');
+    const execPromise = util.promisify(exec);
+
+    const easyrsa_path = '/etc/openvpn/server/easy-rsa';
+    const cert_file = `${easyrsa_path}/pki/issued/${name}.crt`;
+    const key_file = `${easyrsa_path}/pki/private/${name}.key`;
+    const req_file = `${easyrsa_path}/pki/reqs/${name}.req`;
+    const config_file = `/root/${name}.ovpn`;
+
+    // Check if certificate exists
+    try {
+      await fs.access(cert_file);
+    } catch (error) {
+      return res.status(404).json({ 
+        error: 'Certificate not found',
+        details: `Certificate ${name} does not exist`
+      });
+    }
+
+    // Delete certificate files
+    const deleteCommands = [
+      `rm -f "${cert_file}"`,
+      `rm -f "${key_file}"`,
+      `rm -f "${req_file}"`,
+      `rm -f "${config_file}"`,
+      `find /home/ -maxdepth 2 -name "${name}.ovpn" -delete`
+    ];
+
+    for (const cmd of deleteCommands) {
+      try {
+        await execPromise(cmd);
+      } catch (error) {
+        console.error(`Failed to execute: ${cmd}`, error);
+      }
+    }
+
+    res.json({
+      success: true,
+      message: `Client ${name} has been permanently deleted`
+    });
+  } catch (error) {
+    console.error('Delete client error:', error);
+    res.status(500).json({ 
+      error: 'Failed to delete client',
+      details: error.message
+    });
+  }
+});
+
 module.exports = router;

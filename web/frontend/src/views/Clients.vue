@@ -69,6 +69,15 @@
             >
               吊销
             </el-button>
+            <el-button
+              v-if="row.status === 'revoked'"
+              type="danger"
+              size="small"
+              :icon="Delete"
+              @click="deleteClient(row.name)"
+            >
+              删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -272,6 +281,29 @@ const disconnectClient = (name) => {
     } catch (error) {
       // Error handled by interceptor
     }
+  })
+}
+
+const deleteClient = (name) => {
+  ElMessageBox.confirm(
+    `确定要永久删除客户端 "${name}" 的证书文件吗？此操作不可恢复！`,
+    '危险操作',
+    {
+      confirmButtonText: '确定删除',
+      cancelButtonText: '取消',
+      type: 'error',
+      confirmButtonClass: 'el-button--danger'
+    }
+  ).then(async () => {
+    try {
+      await api.post(`/clients/${name}/delete`)
+      ElMessage.success('客户端证书已永久删除')
+      loadClients()
+    } catch (error) {
+      // Error handled by interceptor
+    }
+  }).catch(() => {
+    // User cancelled
   })
 }
 
