@@ -366,14 +366,6 @@ cat >> docker-compose.yml <<EOF
     depends_on:
       - backend
 EOF
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    depends_on:
-      - backend
-    environment:
-      - VITE_API_BASE=http://$PUBLIC_IP:8000/api
-EOF
 
 log_info "✓ docker-compose.yml 已更新"
 
