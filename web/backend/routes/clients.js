@@ -132,7 +132,7 @@ router.delete('/:name', async (req, res) => {
   }
 
   try {
-    const result = await executeScript(['client', 'revoke', name]);
+    const result = await executeScript(['client', 'revoke', name, '--force']);
 
     if (result.success) {
       res.json({
