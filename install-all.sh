@@ -111,46 +111,66 @@ apt-get install -y -qq \
 log_info "✓ 基础工具安装完成"
 
 # ==================== 步骤 3: 安装 Docker ====================
-log_step "步骤 3/7: 安装 Docker"
+log_step "3/7 检查 Docker 环境..."
 
-if command -v docker &> /dev/null; then
-    DOCKER_VERSION=$(docker --version)
-    log_info "✓ Docker 已安装: $DOCKER_VERSION"
-    
-    # 检查 Docker Compose V2
-    if docker compose version &> /dev/null; then
-        log_info "✓ Docker Compose V2 已安装: $(docker compose version)"
-    else
-        log_warn "Docker Compose V2 未安装，尝试安装..."
-        apt-get install -y docker-compose-plugin
-    fi
-else
-    log_info "开始安装 Docker..."
-    
-    # 卸载旧版本
-    apt-get remove -y docker docker-engine docker.io containerd runc 2>/dev/null || true
+if ! command -v docker &> /dev/null; then
+    log_warn "Docker 未安装，开始安装..."
+    apt-get update
+    apt-get install -y ca-certificates curl gnupg lsb-release
     
     # 添加 Docker 官方 GPG key
-    install -m 0755 -d /etc/apt/keyrings
-    curl -fsSL https://download.docker.com/linux/$OS/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-    chmod a+r /etc/apt/keyrings/docker.gpg
+    mkdir -p /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
     
     # 添加 Docker 仓库
     echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$OS \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
       $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
     
-    # 安装 Docker
-    apt-get update -qq
-    apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-    
-    # 启动 Docker
+    apt-get update
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+    log_info "✓ Docker 安装完成"
+else
+    log_info "✓ Docker 已安装"
+fi
+
+# 检查 Docker Compose
+if docker compose version &> /dev/null; then
+    log_info "✓ Docker Compose 已安装 (V2)"
+    COMPOSE_CMD="docker compose"
+elif command -v docker-compose &> /dev/null; then
+    log_info "✓ Docker Compose 已安装 (V1)"
+    COMPOSE_CMD="docker-compose"
+else
+    log_warn "Docker Compose 未安装，正在安装..."
+    apt-get install -y docker-compose
+    COMPOSE_CMD="docker-compose"
+fi
+
+# 启动 Docker 服务
+if ! systemctl is-active --quiet docker; then
     systemctl start docker
     systemctl enable docker
-    
-    log_info "✓ Docker 安装完成: $(docker --version)"
-    log_info "✓ Docker Compose 安装完成: $(docker compose version)"
 fi
+log_info "✓ Docker 服务运行正常"
+
+# 修复 iptables 兼容性问题（Ubuntu 22.04+ / Debian 11+ 使用 nftables）
+log_info "配置 iptables 兼容性..."
+if command -v update-alternatives &> /dev/null; then
+    # 切换到 iptables-legacy 模式
+    update-alternatives --set iptables /usr/sbin/iptables-legacy 2>/dev/null || true
+    update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy 2>/dev/null || true
+    update-alternatives --set arptables /usr/sbin/arptables-legacy 2>/dev/null || true
+    update-alternatives --set ebtables /usr/sbin/ebtables-legacy 2>/dev/null || true
+    log_info "✓ 已切换到 iptables-legacy 模式"
+    
+    # 重启 Docker 以应用更改
+    log_info "重启 Docker 服务以应用 iptables 配置..."
+    systemctl restart docker
+    sleep 2
+    log_info "✓ Docker 服务已重启"
+fi
+
 
 # ==================== 步骤 4: 克隆项目代码 ====================
 log_step "步骤 4/7: 克隆项目代码"
@@ -279,6 +299,12 @@ chmod +x deploy-web.sh
 
 log_info "开始部署 Web 管理后台..."
 sleep 2
+
+# 清理可能存在的旧容器和网络
+log_info "清理旧容器和网络..."
+docker compose down 2>/dev/null || true
+docker network prune -f 2>/dev/null || true
+log_info "✓ 清理完成"
 
 # 执行部署脚本
 bash deploy-web.sh
